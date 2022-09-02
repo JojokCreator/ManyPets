@@ -23,6 +23,14 @@ export const createQuote = async (req, res) => {
   if (findBreed.length === 0) {
     return res.status(400).json({ message: 'Please enter a valid dog breed' });
   }
+
+  let postCodeFetch = await fetch(`https://api.postcodes.io/postcodes/${qoute.address.postcode}`);
+  let postcodeData = await postCodeFetch.json();
+  if (postcodeData.status === 404) {
+    return res.status(400).json({ message: 'Please enter a valid Postcode' });
+  }
+  
+
   const newQuote = new quoteSchema({
     ...quote,
     quotationCost: 100, //Carlos magic here
