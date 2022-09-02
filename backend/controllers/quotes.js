@@ -14,7 +14,7 @@ export const getQuotes = async (req, res) => {
 //creates a new quote
 export const createQuote = async (req, res) => {
   const quote = req.body;
-
+  console.log('quote', quote);
   const newQuote = new quoteSchema({
     ...quote,
     createdAt: new Date().toISOString(),
@@ -26,7 +26,7 @@ export const createQuote = async (req, res) => {
     let dogData = await dogFetch.json();
 
     let findBreed = dogData.filter(
-      (item) => item.name.toLowerCase() === quote.breed.toLowerCase()
+      (item) => item.name.toLowerCase() === quote.breedType.toLowerCase()
     );
     if (findBreed.length === 0) {
       return res
@@ -42,8 +42,11 @@ export const createQuote = async (req, res) => {
     if (postcodeData.status === 404) {
       return res.status(400).json({ message: 'Please enter a valid Postcode' });
     }
-    console.log(newQuote)
-    newQuote.address = {city: postcodeData.result.parish, postcode: quote.postcode}
+    console.log(newQuote);
+    newQuote.address = {
+      city: postcodeData.result.parish,
+      postcode: quote.postcode,
+    };
     await newQuote.save();
     res.status(201).json(newQuote);
   } catch (error) {
@@ -72,47 +75,37 @@ export const getQuoteByQuery = async (req, res) => {
 
 // Create the quote
 function getQuote(pet) {
-    // constants
-    const PRICE_MONTH = 10;
-    const DISCOUNTED_BREEDS = [
-        'Akita',
-        'Bull Terrier',
-        'Pug'
-    ];
-    const POSTCODE_INCREASE = [
-        'SW20',
-        'GU12',
-        'HU33'
-    ]
+  // constants
+  const PRICE_MONTH = 10;
+  const DISCOUNTED_BREEDS = ['Akita', 'Bull Terrier', 'Pug'];
+  const POSTCODE_INCREASE = ['SW20', 'GU12', 'HU33'];
 
-    // separate the number of years and the leftover number of months
-    let monthsOld = pet.age % 12;
-    let yearsOld = pet.age > 11 ? (pet.age - monthsOld) / 12 : 0;
+  // separate the number of years and the leftover number of months
+  let monthsOld = pet.age % 12;
+  let yearsOld = pet.age > 11 ? (pet.age - monthsOld) / 12 : 0;
 
-    // init the quote with base price
-    let quote = PRICE_MONTH * pet.age;
+  // init the quote with base price
+  let quote = PRICE_MONTH * pet.age;
 
-    // increase per year 5% 1-5 and 10% 6-10
-    if (pet.age > 11) {
-        
-        const discTen = yearsOld > 5 && yearsOld < 11 
-            ? yearsOld - 5
-            : yearsOld > 10 ? 5 : 0;
-        const discFive = yearsOld < 5 ? yearsOld : 5;
+  // increase per year 5% 1-5 and 10% 6-10
+  if (pet.age > 11) {
+    const discTen =
+      yearsOld > 5 && yearsOld < 11 ? yearsOld - 5 : yearsOld > 10 ? 5 : 0;
+    const discFive = yearsOld < 5 ? yearsOld : 5;
 
-        quote += +(((5 / 100) * (PRICE_MONTH * 12)) * discFive).toFixed(2);
-        quote += +(((10 / 100) * (PRICE_MONTH * 12)) * discTen).toFixed(2);
-    }
-
-    // check for area price increase
-    if (POSTCODE_INCREASE.includes(pet.city)) {
-        quote += +(15 / 100 * quote).toFixed(2);
-    }
-
-    // discount for pet breed
-    if (DISCOUNTED_BREEDS.includes(pet.breed)) {
-        quote -= +(10 / 100 * quote).toFixed(2);
-    }
-    
-    return quote;
+    quote += +((5 / 100) * (PRICE_MONTH * 12) * discFive).toFixed(2);
+    quote += +((10 / 100) * (PRICE_MONTH * 12) * discTen).toFixed(2);
   }
+
+  // check for area price increase
+  if (POSTCODE_INCREASE.includes(pet.city)) {
+    quote += +((15 / 100) * quote).toFixed(2);
+  }
+
+  // discount for pet breed
+  if (DISCOUNTED_BREEDS.includes(pet.breed)) {
+    quote -= +((10 / 100) * quote).toFixed(2);
+  }
+
+  return quote;
+}
