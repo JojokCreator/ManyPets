@@ -23,7 +23,8 @@ function App() {
     console.log(inputs[0].value);
     setAmount(Number(inputs[13].value));
     let obj = {
-      species: inputs[0].checked ? inputs[0].value : inputs[1].value,
+      // species: inputs[0].checked ? inputs[0].value : inputs[1].value,
+      species: 'Dog',
       name: inputs[4].value,
       gender: inputs[2].checked ? inputs[2].value : inputs[3].value,
       breedType: inputs[5].value,
@@ -45,11 +46,11 @@ function App() {
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
-        <p>Is {name} a dog or a cat?</p>
+        {/* <p>Is {name} a dog or a cat?</p>
         <label htmlFor="dog">Dog</label>
         <input type="radio" id="dog" name="species" value={'dog'}></input>
         <label htmlFor="cat">Cat</label>
-        <input type="radio" name="species" id="cat" value={'cat'}></input>
+        <input type="radio" name="species" id="cat" value={'cat'}></input> */}
 
         <p>What gender is {name}</p>
         <label htmlFor="Male">Male</label>
