@@ -1,9 +1,11 @@
 import express from "express";
 
-import { getQuotes } from "../controllers/quotes.js"
+import { getQuotes, createQuote, getQuoteByQuery } from "../controllers/quotes.js"
 
 const router = express.Router();
 
-router.get("/search", getQuotes);
+router.get("/", getQuotes);
+router.post("/", createQuote);
+router.get("/:query", getQuoteByQuery);
 
 export default router;
