@@ -1,0 +1,28 @@
+GET https://example.com/comments/1 HTTP/1.1
+
+###
+
+GET https://example.com/topics/1 HTTP/1.1
+
+###
+
+POST http://localhost:5000/quotes HTTP/1.1
+content-type: application/json
+
+{
+    "species": "Dog",
+    "name": "Fido",
+    "gender": "Male",
+    "breedType": "Poodle",
+    "breed": "mixed",
+    "age": "12",
+    "spayed": "true",
+    "address": {
+      "firstLine": "10 new road",
+      "city": "London",
+      "postcode": "L053NY"
+    },
+    "email": "test@email.com",
+    "coverLength": "4",
+    "quotationCost": "4"
+}
