@@ -17,6 +17,7 @@ export const createQuote = async (req, res) => {
 
   const newQuote = new quoteSchema({
     ...quote,
+    createdAt: new Date().toISOString(),
     quotationCost: 100, //Carlos magic here
   });
 
@@ -34,13 +35,15 @@ export const createQuote = async (req, res) => {
     }
 
     let postCodeFetch = await fetch(
-      `https://api.postcodes.io/postcodes/${quote.address.postcode}`
+      `https://api.postcodes.io/postcodes/${quote.postcode}`
     );
     let postcodeData = await postCodeFetch.json();
     console.log(postcodeData);
     if (postcodeData.status === 404) {
       return res.status(400).json({ message: 'Please enter a valid Postcode' });
     }
+    console.log(newQuote)
+    newQuote.address = {city: postcodeData.result.parish, postcode: quote.postcode}
     await newQuote.save();
     res.status(201).json(newQuote);
   } catch (error) {
