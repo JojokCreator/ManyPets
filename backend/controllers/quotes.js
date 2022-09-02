@@ -14,22 +14,6 @@ export const getQuotes = async (req, res) => {
 //creates a new quote
 export const createQuote = async (req, res) => {
   const quote = req.body;
-  let dogFetch = await fetch('https://api.thedogapi.com/v1/breeds/');
-  let dogData = await dogFetch.json();
-
-  let findBreed = dogData.filter(
-    (item) => item.name.toLowerCase() === quote.breed.toLowerCase()
-  );
-  if (findBreed.length === 0) {
-    return res.status(400).json({ message: 'Please enter a valid dog breed' });
-  }
-
-  let postCodeFetch = await fetch(`https://api.postcodes.io/postcodes/${qoute.address.postcode}`);
-  let postcodeData = await postCodeFetch.json();
-  if (postcodeData.status === 404) {
-    return res.status(400).json({ message: 'Please enter a valid Postcode' });
-  }
-  
 
   const newQuote = new quoteSchema({
     ...quote,
@@ -37,9 +21,26 @@ export const createQuote = async (req, res) => {
   });
 
   try {
-    // address validatiom
-    // breed validation
+    let dogFetch = await fetch('https://api.thedogapi.com/v1/breeds/');
+    let dogData = await dogFetch.json();
 
+    let findBreed = dogData.filter(
+      (item) => item.name.toLowerCase() === quote.breed.toLowerCase()
+    );
+    if (findBreed.length === 0) {
+      return res
+        .status(400)
+        .json({ message: 'Please enter a valid dog breed' });
+    }
+
+    let postCodeFetch = await fetch(
+      `https://api.postcodes.io/postcodes/${quote.address.postcode}`
+    );
+    let postcodeData = await postCodeFetch.json();
+    console.log(postcodeData);
+    if (postcodeData.status === 404) {
+      return res.status(400).json({ message: 'Please enter a valid Postcode' });
+    }
     await newQuote.save();
     res.status(201).json(newQuote);
   } catch (error) {
