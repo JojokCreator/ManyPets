@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 function App() {
   const [name, setName] = useState('your pet');
-  const [amount, setAmount] = useState(1);
+  // const [amount, setAmount] = useState(1);
   const [data, setData] = useState({
     species: 'Dog',
     name: '',
@@ -32,13 +32,21 @@ function App() {
   }
   useEffect(() => {
     async function sendData() {
-      let response;
+      let response = await fetch('http://localhost:5000/quotes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      let responseInfo = await response.json();
+      console.log('fetch res', responseInfo);
     }
     if (submit) {
       sendData();
       setSubmit(false);
     }
-  }, [submit]);
+  }, [submit, data]);
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('info'));
     if (storedData) {
@@ -50,7 +58,6 @@ function App() {
     let inputs = e.target.elements;
     console.log(e.target.elements);
     console.log(inputs[0].value);
-    setAmount(Number(inputs[13].value));
     setSubmit(true);
   }
   function handleNameChange(e) {
@@ -70,6 +77,7 @@ function App() {
         <p>What gender is {name}</p>
         <label htmlFor="Male">Male</label>
         <input
+          required
           type="radio"
           id="Male"
           name="gender"
@@ -78,6 +86,7 @@ function App() {
         ></input>
         <label htmlFor="Female">Female</label>
         <input
+          required
           onChange={handleChange}
           type="radio"
           name="gender"
@@ -86,6 +95,7 @@ function App() {
         ></input>
         <label htmlFor="name"> What is your furry friend's name</label>
         <input
+          required
           onChange={handleNameChange}
           type="text"
           id="name"
@@ -97,6 +107,7 @@ function App() {
 
         <label htmlFor="age">How old is {name} in months?</label>
         <input
+          required
           onChange={handleChange}
           id="age"
           type="number"
@@ -106,6 +117,7 @@ function App() {
         <p>Has {name} been sprayed or neutered?</p>
         <label htmlFor="sprayed">Sprayed</label>
         <input
+          required
           onChange={handleChange}
           type="radio"
           id="sprayed"
@@ -114,6 +126,7 @@ function App() {
         ></input>
         <label htmlFor="neutered">Neutered</label>
         <input
+          required
           onChange={handleChange}
           type="radio"
           name="sprayed"
@@ -123,6 +136,7 @@ function App() {
 
         <label htmlFor="email">What is your email address?</label>
         <input
+          required
           onChange={handleChange}
           type="email"
           id="email"
@@ -130,6 +144,7 @@ function App() {
         ></input>
         <label htmlFor="postcode">What is your postcode?</label>
         <input
+          required
           onChange={handleChange}
           type="text"
           id="postcode"
@@ -137,6 +152,7 @@ function App() {
         ></input>
         <label htmlFor="money">How many months do you want this to last?</label>
         <input
+          required
           onChange={handleChange}
           type="number"
           id="duration"
