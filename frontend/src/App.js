@@ -1,12 +1,27 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 function App() {
   const [name, setName] = useState('your pet');
+  const [amount, setAmount] = useState(1);
+  const [data, setData] = useState({});
+  const [submit, setSubmit] = useState(false);
+
+  useEffect(() => {
+    async function sendData() {
+      //send to database read data, multiply by amount to send multiple back
+    }
+    if (submit) {
+      sendData();
+      setSubmit(false);
+    }
+  }, [submit]);
+
   function handleSubmit(e) {
     e.preventDefault();
     let inputs = e.target.elements;
     console.log(e.target.elements);
     console.log(inputs[0].value);
+    setAmount(Number(inputs[13].value));
     let obj = {
       species: inputs[0].checked ? inputs[0].value : inputs[1].value,
       name: inputs[4].value,
@@ -19,6 +34,8 @@ function App() {
       email: inputs[10].value,
       coverLength: inputs[12].value,
     };
+    setData({ ...obj });
+    setSubmit(true);
     console.log('obj', obj);
   }
   function handleNameChange(e) {
@@ -64,6 +81,9 @@ function App() {
         <input type="text" id="postcode"></input>
         <label htmlFor="money">How many months do you want this to last?</label>
         <input type="number" id="duration"></input>
+
+        <label htmlFor="counter">How many of these pets shall we create?</label>
+        <input type="number" id="counter"></input>
         <button>Submit</button>
       </form>
     </div>
