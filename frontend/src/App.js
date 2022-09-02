@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 function App() {
   const [name, setName] = useState('your pet');
   // const [amount, setAmount] = useState(1);
+  // localStorage.clear();
   const [data, setData] = useState({
     species: 'Dog',
     name: '',
@@ -27,7 +28,7 @@ function App() {
     } else {
       obj[e.target.name] = e.target.value;
     }
-    console.log('obj changed', obj);
+    // console.log('obj changed', obj);
     setData({ ...obj });
   }
   useEffect(() => {
@@ -40,7 +41,7 @@ function App() {
         body: JSON.stringify(data),
       });
       let responseInfo = await response.json();
-      console.log('fetch res', responseInfo);
+      // console.log('fetch res', responseInfo);
     }
     if (submit) {
       sendData();
@@ -49,21 +50,29 @@ function App() {
   }, [submit, data]);
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('info'));
+    console.log('stored localStorage Data', storedData);
     if (storedData) {
       setData({ ...storedData });
     }
   }, []);
+  useEffect(() => {
+    localStorage.setItem('info', JSON.stringify({ ...data }));
+  }, [data]);
   function handleSubmit(e) {
     e.preventDefault();
-    let inputs = e.target.elements;
-    console.log(e.target.elements);
-    console.log(inputs[0].value);
+    // console.log(e.target.elements);
+    // console.log(inputs[0].value);
+    localStorage.clear();
     setSubmit(true);
   }
   function handleNameChange(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     handleChange(e);
     setName(e.target.value === '' ? 'your pet' : e.target.value);
+  }
+  function setDefaultValue(e) {
+    // console.log(e);
+    return data[e.target.name];
   }
   return (
     <div className="App">
@@ -100,6 +109,7 @@ function App() {
           type="text"
           id="name"
           name="name"
+          defaultValue={setDefaultValue}
         ></input>
 
         <label>What breed type is {name}</label>
