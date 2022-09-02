@@ -18,6 +18,10 @@ const quoteSchema = mongoose.Schema({
     email: String,
     coverLength: Number,
     quotationCost: Number,
+    createdAt: {
+      type: Date,
+      default: new Date(),
+    }
 })
 
 var QuotesModel = mongoose.model('Quotes', quoteSchema);
