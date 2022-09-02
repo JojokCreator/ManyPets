@@ -1,10 +1,26 @@
 import mongoose from 'mongoose';
 import quoteSchema from '../models/postQuote.js';
 import fetch from 'node-fetch';
+
 //Gets all quotes
 export const getQuotes = async (req, res) => {
   try {
     const quotes = await quoteSchema.find();
+    res.status(200).json(quotes);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+//Gets todays quotes
+export const getQuotesToday = async (req, res) => {
+  try {
+    let start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    let end = new Date();
+    end.setHours(23, 59, 59, 999);
+    const quotes = await quoteSchema.find({ createdAt: { $gte: start, $lt: end } });
     res.status(200).json(quotes);
   } catch (error) {
     res.status(404).json({ message: error.message });
