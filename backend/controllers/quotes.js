@@ -18,7 +18,7 @@ export const createQuote = async (req, res) => {
   const newQuote = new quoteSchema({
     ...quote,
     createdAt: new Date().toISOString(),
-    quotationCost: 100, //Carlos magic here
+    quotationCost: getQuote({age: quote.age, city: quote.address.city, breed: quote.breed}),
   });
 
   try {
@@ -60,6 +60,13 @@ export const getQuoteByQuery = async (req, res) => {
   try {
     const quotes = await quoteSchema.find({ email: query });
     // need to add multiple pet discount here!
+    let multiQuotePrice = 0;
+    if (quotes.length > 1) {
+      multiQuotePrice = quotes.reduce((total, quote) => {
+        let discount = 10 / 100 * quote.quotationCost;
+        return total + (quote.quotationCost - discount);
+      }, 0)
+    }
     res.status(200).json(quotes);
   } catch (error) {
     res.status(404).json({ message: error.message });
