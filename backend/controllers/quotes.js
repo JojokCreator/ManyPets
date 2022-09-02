@@ -18,7 +18,6 @@ export const createQuote = async (req, res) => {
   const newQuote = new quoteSchema({
     ...quote,
     createdAt: new Date().toISOString(),
-    quotationCost: getQuote({age: quote.age, city: quote.address.city, breed: quote.breed}),
   });
 
   try {
@@ -47,6 +46,11 @@ export const createQuote = async (req, res) => {
       city: postcodeData.result.parish,
       postcode: quote.postcode,
     };
+    newQuote.quotationCost = getQuote({
+      age: newQuote.age,
+      city: newQuote.address.city,
+      breed: newQuote.breed,
+    });
     await newQuote.save();
     res.status(201).json(newQuote);
   } catch (error) {
@@ -63,9 +67,9 @@ export const getQuoteByQuery = async (req, res) => {
     let multiQuotePrice = 0;
     if (quotes.length > 1) {
       multiQuotePrice = quotes.reduce((total, quote) => {
-        let discount = 10 / 100 * quote.quotationCost;
+        let discount = (10 / 100) * quote.quotationCost;
         return total + (quote.quotationCost - discount);
-      }, 0)
+      }, 0);
     }
     res.status(200).json(quotes);
   } catch (error) {
@@ -78,7 +82,7 @@ function getQuote(pet) {
   // constants
   const PRICE_MONTH = 10;
   const DISCOUNTED_BREEDS = ['Akita', 'Bull Terrier', 'Pug'];
-  const POSTCODE_INCREASE = ['SW20', 'GU12', 'HU33'];
+  const POSTCODE_INCREASE = ['London', 'Leicester', 'Derby'];
 
   // separate the number of years and the leftover number of months
   let monthsOld = pet.age % 12;

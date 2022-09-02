@@ -41,7 +41,7 @@ function App() {
         body: JSON.stringify(data),
       });
       let responseInfo = await response.json();
-      // console.log('fetch res', responseInfo);
+      console.log('fetch res', responseInfo);
     }
     if (submit) {
       sendData();
