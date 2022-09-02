@@ -18,7 +18,7 @@ export const createQuote = async (req, res) => {
   const newQuote = new quoteSchema({
     ...quote,
     createdAt: new Date().toISOString(),
-    quotationCost: 100, //Carlos magic here
+    quotationCost: getQuote({age: quote.age, city: quote.address.city, breed: quote.breed}),
   });
 
   try {
