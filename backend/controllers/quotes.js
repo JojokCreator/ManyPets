@@ -78,7 +78,7 @@ export const createQuote = async (req, res) => {
 export const getQuoteByQuery = async (req, res) => {
   const query = req.params.query;
   try {
-    const quotes = await quoteSchema.find({ email: query });
+    let quotes = await quoteSchema.find({ email: query });
     // need to add multiple pet discount here!
     let multiQuotePrice = 0;
     if (quotes.length > 1) {
@@ -86,6 +86,7 @@ export const getQuoteByQuery = async (req, res) => {
         let discount = (10 / 100) * quote.quotationCost;
         return total + (quote.quotationCost - discount);
       }, 0);
+      quotes = {...quotes, multiQuotePrice}
     }
     res.status(200).json(quotes);
   } catch (error) {
