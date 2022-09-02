@@ -56,7 +56,15 @@ export const getQuoteByQuery = async (req, res) => {
   const query = req.params.query;
   try {
     const quotes = await quoteSchema.find({ email: query });
+    console.log("SOME STUFF HERE: ", quotes);
     // need to add multiple pet discount here!
+    if (quotes.length > 1) {
+      let result = quotes.reduce((total, quote) => {
+        let discount = 10 / 100 * quote.quotationCost;
+        return total + (quote.quotationCost - discount);
+      }, 0)
+      console.log("RESULT: ", result)
+    }
     res.status(200).json(quotes);
   } catch (error) {
     res.status(404).json({ message: error.message });
