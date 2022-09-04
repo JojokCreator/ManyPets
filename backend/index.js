@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000
 
-mongoose.connect("mongodb://mongo:Xw4KqMisyQirbBwA7t4D@containers-us-west-71.railway.app:5460", {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   // useFindAndModify: false,
   useUnifiedTopology: true
