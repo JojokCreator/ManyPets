@@ -1,180 +1,80 @@
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { FiSettings } from 'react-icons/fi';
+
+import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
+import { ExistingQuotes, TodaysQuotes, NewQuote } from './pages'
 import './App.css';
-import { useState, useEffect } from 'react';
-function App() {
-  const [name, setName] = useState('your pet');
-  // const [amount, setAmount] = useState(1);
-  // localStorage.clear();
-  const [data, setData] = useState({
-    species: 'Dog',
-    name: '',
-    gender: '',
-    breedType: '',
-    breed: 'Pedigree',
-    age: 0,
-    sprayed: '',
-    postcode: '',
-    email: '',
-    coverLength: '',
-  });
-  const [submit, setSubmit] = useState(false);
-  function handleChange(e) {
-    let obj = data;
-    if (e.target.name === 'sprayed') {
-      if (e.target.value === 'true') {
-        obj[e.target.name] = true;
-      } else {
-        obj[e.target.name] = false;
-      }
-    } else {
-      obj[e.target.name] = e.target.value;
-    }
-    // console.log('obj changed', obj);
-    setData({ ...obj });
-  }
+
+import { useStateContext } from './contexts/ContextProvider';
+
+const App = () => {
+  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+
   useEffect(() => {
-    async function sendData() {
-      let response = await fetch('http://localhost:5000/quotes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      let responseInfo = await response.json();
-      console.log('fetch res', responseInfo);
-    }
-    if (submit) {
-      sendData();
-      setSubmit(false);
-    }
-  }, [submit, data]);
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('info'));
-    console.log('stored localStorage Data', storedData);
-    if (storedData) {
-      setData({ ...storedData });
+    const currentThemeColor = localStorage.getItem('colorMode');
+    const currentThemeMode = localStorage.getItem('themeMode');
+    if (currentThemeColor && currentThemeMode) {
+      setCurrentColor(currentThemeColor);
+      setCurrentMode(currentThemeMode);
     }
   }, []);
-  useEffect(() => {
-    localStorage.setItem('info', JSON.stringify({ ...data }));
-  }, [data]);
-  function handleSubmit(e) {
-    e.preventDefault();
-    // console.log(e.target.elements);
-    // console.log(inputs[0].value);
-    localStorage.clear();
-    setSubmit(true);
-  }
-  function handleNameChange(e) {
-    // console.log(e.target.value);
-    handleChange(e);
-    setName(e.target.value === '' ? 'your pet' : e.target.value);
-  }
-  function setDefaultValue(e) {
-    // console.log(e);
-    return data[e.target.name];
-  }
+
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        {/* <p>Is {name} a dog or a cat?</p>
-        <label htmlFor="dog">Dog</label>
-        <input type="radio" id="dog" name="species" value={'dog'}></input>
-        <label htmlFor="cat">Cat</label>
-        <input type="radio" name="species" id="cat" value={'cat'}></input> */}
+    <div className={currentMode === 'Dark' ? 'dark' : ''}>
+      <BrowserRouter>
+        <div className="flex relative dark:bg-main-dark-bg">
+          <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
+            <div
+              content="Settings"
+              position="Top"
+            >
+              <button
+                type="button"
+                onClick={() => setThemeSettings(true)}
+                style={{ background: currentColor, borderRadius: '50%' }}
+                className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
+              >
+                <FiSettings />
+              </button>
 
-        <p>What gender is {name}</p>
-        <label htmlFor="Male">Male</label>
-        <input
-          required
-          type="radio"
-          id="Male"
-          name="gender"
-          value={'male'}
-          onChange={handleChange}
-        ></input>
-        <label htmlFor="Female">Female</label>
-        <input
-          required
-          onChange={handleChange}
-          type="radio"
-          name="gender"
-          id="Female"
-          value={'female'}
-        ></input>
-        <label htmlFor="name"> What is your furry friend's name</label>
-        <input
-          required
-          onChange={handleNameChange}
-          type="text"
-          id="name"
-          name="name"
-          defaultValue={setDefaultValue}
-        ></input>
-
-        <label>What breed type is {name}</label>
-        <input onChange={handleChange} type="text" name="breedType"></input>
-
-        <label htmlFor="age">How old is {name} in months?</label>
-        <input
-          required
-          onChange={handleChange}
-          id="age"
-          type="number"
-          name="age"
-        ></input>
-
-        <p>Has {name} been sprayed or neutered?</p>
-        <label htmlFor="sprayed">Sprayed</label>
-        <input
-          required
-          onChange={handleChange}
-          type="radio"
-          id="sprayed"
-          name="sprayed"
-          value={true}
-        ></input>
-        <label htmlFor="neutered">Neutered</label>
-        <input
-          required
-          onChange={handleChange}
-          type="radio"
-          name="sprayed"
-          id="neutered"
-          value={false}
-        ></input>
-
-        <label htmlFor="email">What is your email address?</label>
-        <input
-          required
-          onChange={handleChange}
-          type="email"
-          id="email"
-          name="email"
-        ></input>
-        <label htmlFor="postcode">What is your postcode?</label>
-        <input
-          required
-          onChange={handleChange}
-          type="text"
-          id="postcode"
-          name="postcode"
-        ></input>
-        <label htmlFor="money">How many months do you want this to last?</label>
-        <input
-          required
-          onChange={handleChange}
-          type="number"
-          id="duration"
-          name="coverLength"
-        ></input>
-
-        {/* <label htmlFor="counter">How many of these pets shall we create?</label>
-        <input onChange={handleChange} type="number" id="counter"></input> */}
-        <button>Submit</button>
-      </form>
+            </div>
+          </div>
+          {activeMenu ? (
+            <div className="w-60 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
+              <Sidebar />
+            </div>
+          ) : (
+            <div className="w-0 dark:bg-secondary-dark-bg">
+              <Sidebar />
+            </div>
+          )}
+          <div
+            className={
+              activeMenu
+                ? 'dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  '
+                : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 '
+            }
+          >
+            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
+              <Navbar />
+            </div>
+            <div>
+              {themeSettings && (<ThemeSettings />)}
+            </div>
+              <Routes>
+                {/* dashboard  */}
+                <Route path="/todaysquotes" element={(<TodaysQuotes />)} />
+                {/* orders  */}
+                <Route path="/newquote" element={(<NewQuote />)} />
+                <Route path="/existingquotes" element={(<ExistingQuotes />)} />
+              </Routes>
+            <Footer />
+          </div>
+        </div>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
