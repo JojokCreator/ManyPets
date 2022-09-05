@@ -18,14 +18,12 @@ const ExistingQuotes = () => {
     getData()
   }, []);
 
-  if (isLoading === true) {
-    return (
-      <div>Loading...</div>
-    )
-  }
   return (
     <div>
-      <div className="overflow-x-auto relative">
+        {(isLoading === true) ?
+          <div className="m-20">Loading...</div>
+          :
+      <div className="overflow-x-auto relative mt-20">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -63,7 +61,7 @@ const ExistingQuotes = () => {
             className="text-white focus:ring-4 focus:outline-none hover:opacity-70 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >Buy Now</button>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
