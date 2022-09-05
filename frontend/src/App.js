@@ -64,6 +64,7 @@ const App = () => {
             </div>
               <Routes>
                 {/* dashboard  */}
+                <Route path="/" element={(<NewQuote />)} />
                 <Route path="/todaysquotes" element={(<TodaysQuotes />)} />
                 {/* orders  */}
                 <Route path="/newquote" element={(<NewQuote />)} />

@@ -59,10 +59,10 @@ const Form = () => {
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 rounded-3xl">
       <form onSubmit={handleSubmit}>
-        <div class="relative z-0 mb-6 w-full group">
-          <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">What gender is {name}</p>
+        <div className="relative z-0 mb-6 w-full group">
+          <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">What gender is {name}</p>
         </div>
-        <label htmlFor="Male" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
+        <label htmlFor="Male" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
         <input
           required
           type="radio"
@@ -72,7 +72,7 @@ const Form = () => {
           value={'male'}
           onChange={handleChange}
         ></input>
-        <label htmlFor="Female" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
+        <label htmlFor="Female" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
         <input
           required
           onChange={handleChange}
@@ -81,10 +81,10 @@ const Form = () => {
           checked={data?.gender === 'female' ? true : false}
           id="Female"
           value={'female'}
-          class="mb-6"
+          className="mb-6"
         ></input>
 
-        <div class="relative z-0 mb-6 w-full group">
+        <div className="relative z-0 mb-6 w-full group">
           <input
             required
             onChange={handleNameChange}
@@ -93,15 +93,15 @@ const Form = () => {
             name="name"
             defaultValue={data?.name}
             placeholder=" "
-            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           ></input>
-          <label htmlFor="name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"> What is your furry friend's name</label>
+          <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"> What is your furry friend's name</label>
         </div>
-        <div class="relative z-0 mb-6 w-full group">
-          <input onChange={handleChange} type="text" name="breedType" defaultValue={data?.breedType} placeholder=" " class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"></input>
-          <label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">What breed type is {name}</label>
+        <div className="relative z-0 mb-6 w-full group">
+          <input onChange={handleChange} type="text" name="breedType" defaultValue={data?.breedType} placeholder=" " className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"></input>
+          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">What breed type is {name}</label>
         </div>
-        <div class="relative z-0 mb-6 w-full group">
+        <div className="relative z-0 mb-6 w-full group">
           <input
             required
             onChange={handleChange}
@@ -110,14 +110,14 @@ const Form = () => {
             name="age"
             defaultValue={data?.age}
             placeholder=" "
-            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           ></input>
-          <label htmlFor="age" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">How old is {name} in months?</label>
+          <label htmlFor="age" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">How old is {name} in months?</label>
         </div>
-        <div class="relative z-0 mb-6 w-full group">
-          <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Has {name} been sprayed or neutered?</p>
+        <div className="relative z-0 mb-6 w-full group">
+          <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Has {name} been sprayed or neutered?</p>
         </div>
-        <label htmlFor="sprayed" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sprayed</label>
+        <label htmlFor="sprayed" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sprayed</label>
         <input
           required
           onChange={handleChange}
@@ -127,7 +127,7 @@ const Form = () => {
           checked={data?.sprayed === true ? true : false}
           value={true}
         ></input>
-        <label htmlFor="neutered" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Neutered</label>
+        <label htmlFor="neutered" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Neutered</label>
         <input
           required
           onChange={handleChange}
@@ -136,9 +136,9 @@ const Form = () => {
           checked={data?.sprayed === false ? true : false}
           id="neutered"
           value={false}
-          class="mb-6"
+          className="mb-6"
         ></input>
-        <div class="relative z-0 mb-6 w-full group">
+        <div className="relative z-0 mb-6 w-full group">
           <input
             required
             onChange={handleChange}
@@ -147,11 +147,11 @@ const Form = () => {
             name="email"
             defaultValue={data?.email}
             placeholder=" "
-            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           ></input>
-          <label htmlFor="email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">What is your email address?</label>
+          <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">What is your email address?</label>
         </div>
-        <div class="relative z-0 mb-6 w-full group">
+        <div className="relative z-0 mb-6 w-full group">
         <input
           required
           onChange={handleChange}
@@ -160,11 +160,11 @@ const Form = () => {
           name="postcode"
           defaultValue={data?.postcode}
           placeholder=" "
-          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         ></input>
-        <label htmlFor="postcode" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">What is your postcode?</label>
+        <label htmlFor="postcode" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">What is your postcode?</label>
         </div>
-        <div class="relative z-0 mb-6 w-full group">
+        <div className="relative z-0 mb-6 w-full group">
         <input
           required
           onChange={handleChange}
@@ -173,17 +173,17 @@ const Form = () => {
           name="coverLength"
           defaultValue={data?.coverLength}
           placeholder=" "
-          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         ></input>
-        <label htmlFor="money" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">How many months do you want this to last?</label>
+        <label htmlFor="money" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">How many months do you want this to last?</label>
         </div>
-        <div class="relative z-0 mb-6 w-full group flex items-center">
+        <div className="relative z-0 mb-6 w-full group flex items-center">
         <button
           type="submit"
           style={{ backgroundColor: currentColor }}
-          class="text-white focus:ring-4 focus:outline-none hover:opacity-70 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          className="text-white focus:ring-4 focus:outline-none hover:opacity-70 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >Submit</button>
-          <p class="ml-6 text-red-800 text-xl">{error}</p>
+          <p className="ml-6 text-red-800 text-xl">{error}</p>
         </div>
       </form>
     </div>
