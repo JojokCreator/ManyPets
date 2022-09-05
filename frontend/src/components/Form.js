@@ -27,7 +27,7 @@ const Form = () => {
   }
 
     async function sendData() {
-      let response = await fetch('http://localhost:5000/quotes', {
+      let response = await fetch('https://lime-witty-sea-lion.cyclic.app/quotes/test@email.com/quotes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

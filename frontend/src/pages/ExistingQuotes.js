@@ -6,7 +6,7 @@ const ExistingQuotes = () => {
   const { currentColor } = useStateContext();
   useEffect(() => {
   async function getData() {
-    let response = await fetch('http://localhost:5000/quotes/test@email.com', {
+    let response = await fetch('https://lime-witty-sea-lion.cyclic.app/quotes/test@email.com', {
       method: 'Get',
     });
     let data = await response.json();

@@ -5,7 +5,7 @@ const ExistingQuotes = () => {
   
   useEffect(() => {
   async function getData() {
-    let response = await fetch('http://localhost:5000/quotes/todays/quotes', {
+    let response = await fetch('https://lime-witty-sea-lion.cyclic.app/quotes/test@email.com/quotes/todays/quotes', {
       method: 'Get',
     });
     let data = await response.json();
