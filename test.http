@@ -6,7 +6,7 @@ GET https://example.com/topics/1 HTTP/1.1
 
 ###
 
-POST http://localhost:5000/quotes HTTP/1.1
+POST https://lime-witty-sea-lion.cyclic.app/quotes HTTP/1.1
 content-type: application/json
 
 {
