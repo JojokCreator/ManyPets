@@ -13,16 +13,11 @@ content-type: application/json
     "species": "Dog",
     "name": "Fido",
     "gender": "Male",
-    "breedType": "Poodle",
-    "breed": "mixed",
+    "breedType": "Poodle (Toy)",
+    "breed": "Pedigree",
     "age": "12",
     "spayed": "true",
-    "address": {
-      "firstLine": "10 new road",
-      "city": "London",
-      "postcode": "L053NY"
-    },
+    "postcode": "PO51EQ",
     "email": "test@email.com",
-    "coverLength": "4",
-    "quotationCost": "4"
+    "coverLength": "4"
 }
